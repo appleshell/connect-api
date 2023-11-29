@@ -14,11 +14,7 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
       envFilePath: ['.env'],
     }),
-    MongooseModule.forRoot(
-      // 'mongodb+srv://lvps:330088@cluster0.ktj7cgx.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp',
-      process.env.MONGODB_URI,
-      { dbName: 'connects' },
-    ),
+    MongooseModule.forRoot(process.env.MONGODB_URI, { dbName: 'connects' }),
   ],
   controllers: [AppController],
   providers: [AppService],
