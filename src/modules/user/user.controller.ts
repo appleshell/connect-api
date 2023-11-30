@@ -1,6 +1,15 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { RegisterDto, UserDto } from './dto/user.dto';
+import { Public } from '../auth/decorators/public.decorator';
 
 @Controller('user')
 export class UserController {
@@ -12,6 +21,7 @@ export class UserController {
   }
 
   @Post('register')
+  @Public()
   register(@Body() userData: RegisterDto) {
     return this.userService.register(userData);
   }

@@ -4,6 +4,8 @@ import { AuthService } from './auth.service';
 import { UserModule } from '../user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './guards/auth.guard';
 
 @Module({
   imports: [
@@ -13,7 +15,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       useFactory(configService: ConfigService) {
         return {
           secret: configService.get('JWT_SECRET'),
-          // expires: configService.get('JWT_EXPIRE'),
           signOptions: { expiresIn: configService.get('JWT_EXPIRE') },
         };
       },
@@ -21,6 +22,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, { provide: APP_GUARD, useClass: AuthGuard }],
+  // exports: [AuthService, JwtModule],
 })
 export class AuthModule {}
