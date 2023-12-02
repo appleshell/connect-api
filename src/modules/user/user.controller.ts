@@ -5,11 +5,13 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { RegisterDto, UserDto } from './dto/user.dto';
 import { Public } from '../auth/decorators/public.decorator';
+import { UserSearchDto } from './dto/page.dto';
 
 @Controller('user')
 export class UserController {
@@ -32,12 +34,22 @@ export class UserController {
   }
 
   @Get()
+  find(@Query() query: UserSearchDto) {
+    const { current, page_size, ...restParams } = query;
+    return this.userService.findByPage({
+      ...restParams,
+      current: Number(current),
+      page_size: Number(restParams),
+    });
+  }
+
+  @Get('all')
   findAll() {
     return this.userService.findAll();
   }
 
   @Get(':id')
-  async find(@Param('id') id: string) {
+  async findById(@Param('id') id: string) {
     return await this.userService.findOne(id);
   }
 

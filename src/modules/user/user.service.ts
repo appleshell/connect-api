@@ -23,6 +23,26 @@ export class UserService {
     return this.userModel.find().exec();
   }
 
+  async findByPage(data) {
+    const {
+      page_size = 10,
+      current = 1,
+      created_start,
+      created_end,
+      ...restParams
+    } = data;
+    const r = await this.userModel
+      .find({
+        ...restParams,
+        // createdAt: { $gt: created_end, $lt: created_start },
+      })
+      .skip((current - 1) * page_size)
+      .limit(page_size)
+      .select(['user_name', 'email', 'status', 'type', 'createdAt']);
+
+    return r;
+  }
+
   async findOne(id: string) {
     const r = await this.userModel.findById(id).exec();
     return r;
