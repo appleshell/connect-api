@@ -5,9 +5,11 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
+  <p align="center">This project is built by Nest.js. Provide api for my Next.js project: [Connect](https://connect.linmo.info)</p>
+
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository. Using MongoDB and Mongoose for data management.
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Installation
 
@@ -27,4 +29,3 @@ $ pnpm run start:dev
 # production mode
 $ pnpm run start:prod
 ```
-
