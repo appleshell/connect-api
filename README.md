@@ -5,7 +5,7 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">This project is built by Nest.js. Provide api for my Next.js project: [Connect](https://connect.linmo.info)</p>
+  <p align="center">This project is built by Nest.js. Provide api for my Next.js project: <a href="https://connect.linmo.info" target="_blank">Connect</a></p>
 
 ## Description
 
