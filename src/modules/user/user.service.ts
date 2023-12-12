@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schema/user.schema';
-import mongoose, { Model } from 'mongoose';
+import { Model } from 'mongoose';
 import { RegisterDto, UserDto } from './dto/user.dto';
 import { isEmpty } from 'lodash';
 import { md5 } from 'src/utils/crypto';
@@ -15,8 +15,11 @@ export class UserService {
     return createdUser.save();
   }
 
-  update() {
-    return 'update';
+  async update(data) {
+    const { _id, user_name } = data;
+    console.log(data);
+    await this.userModel.updateOne({ _id }, { user_name }).exec();
+    return this.findOne(_id);
   }
 
   async findAll() {
@@ -44,7 +47,9 @@ export class UserService {
   }
 
   async findOne(id: string) {
-    const r = await this.userModel.findById(id).exec();
+    const r = await this.userModel
+      .findById(id, { _id: 1, user_name: 1, type: 1, status: 1, email: 1 })
+      .exec();
     return r;
   }
 

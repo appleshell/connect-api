@@ -47,3 +47,18 @@ export class RegisterDto {
   @IsNotEmpty()
   type: number;
 }
+
+export class UpdateUserDto {
+  @IsString()
+  @MaxLength(20)
+  @IsNotEmpty()
+  user_name: string;
+
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+
+  @IsIn([0, 1, 2])
+  @IsNotEmpty()
+  type: number;
+}
