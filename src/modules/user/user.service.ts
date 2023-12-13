@@ -17,8 +17,13 @@ export class UserService {
 
   async update(data) {
     const { _id, user_name } = data;
-    console.log(data);
     await this.userModel.updateOne({ _id }, { user_name }).exec();
+    return this.findOne(_id);
+  }
+
+  async updateStatus(data) {
+    const { _id, status } = data;
+    await this.userModel.updateOne({ _id }, { status });
     return this.findOne(_id);
   }
 
@@ -42,8 +47,10 @@ export class UserService {
       .skip((current - 1) * page_size)
       .limit(page_size)
       .select(['user_name', 'email', 'status', 'type', 'createdAt']);
+    const total = await this.userModel.find(restParams).countDocuments();
+    console.log(total);
 
-    return r;
+    return { users: r, total, current, page_size };
   }
 
   async findOne(id: string) {

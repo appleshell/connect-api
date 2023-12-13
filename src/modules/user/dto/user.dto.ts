@@ -62,3 +62,8 @@ export class UpdateUserDto {
   @IsNotEmpty()
   type: number;
 }
+
+export class UpdateUserStatusDto {
+  @IsNotEmpty()
+  status: number;
+}

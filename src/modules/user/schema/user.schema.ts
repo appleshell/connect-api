@@ -17,7 +17,7 @@ export class User {
   @Prop()
   updated_at: Date;
 
-  @Prop()
+  @Prop({ default: 1 })
   status: number;
 
   @Prop()

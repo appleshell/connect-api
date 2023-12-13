@@ -9,7 +9,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { RegisterDto, UpdateUserDto, UserDto } from './dto/user.dto';
+import {
+  RegisterDto,
+  UpdateUserDto,
+  UpdateUserStatusDto,
+  UserDto,
+} from './dto/user.dto';
 import { Public } from '../auth/decorators/public.decorator';
 import { UserSearchDto } from './dto/page.dto';
 
@@ -31,6 +36,11 @@ export class UserController {
   @Put()
   update(@Body() userData: UpdateUserDto) {
     return this.userService.update(userData);
+  }
+
+  @Put('status')
+  updateStatus(@Body() userData: UpdateUserStatusDto) {
+    return this.userService.updateStatus(userData);
   }
 
   @Get()

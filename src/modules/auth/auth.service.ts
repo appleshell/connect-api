@@ -22,6 +22,10 @@ export class AuthService {
       throw new BadRequestException('登录信息输入有误');
     }
 
+    if (user.status !== 1) {
+      throw new BadRequestException('账号已失效');
+    }
+
     const payload = { sub: user._id, user_name };
 
     return {
