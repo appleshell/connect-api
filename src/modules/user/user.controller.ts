@@ -6,8 +6,9 @@ import {
   Post,
   Put,
   Query,
-  UseGuards,
+  Req,
 } from '@nestjs/common';
+import { Request } from 'express';
 import { UserService } from './user.service';
 import {
   RegisterDto,
@@ -43,19 +44,25 @@ export class UserController {
     return this.userService.updateStatus(userData);
   }
 
-  @Get()
+  @Get('lists')
   find(@Query() query: UserSearchDto) {
     const { current, page_size, ...restParams } = query;
     return this.userService.findByPage({
       ...restParams,
       current: Number(current),
-      page_size: Number(restParams),
+      page_size: Number(page_size),
     });
   }
 
   @Get('all')
   findAll() {
     return this.userService.findAll();
+  }
+
+  @Get()
+  findUser(@Req() req: Request & { user: any }) {
+    const { user } = req;
+    return this.userService.findOne(user.sub);
   }
 
   @Get(':id')
