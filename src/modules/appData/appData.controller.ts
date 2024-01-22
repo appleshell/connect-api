@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Req } from '@nestjs/common';
 import { AppDataService } from './appData.service';
 import { AppDataDto } from './dto/appData.dto';
 
@@ -12,7 +12,20 @@ export class AppDataController {
   }
 
   @Post()
-  createAppData(@Body() appData: AppDataDto) {
-    return this.appDataService.createApp(appData);
+  createAppData(
+    @Req() req: Request & { user: any },
+    @Body() appData: AppDataDto,
+  ) {
+    const { user } = req;
+    return this.appDataService.createApp({ ...appData, user: user.sub });
+  }
+
+  @Put()
+  updateAppData(
+    @Req() req: Request & { user: any },
+    @Body() appData: AppDataDto,
+  ) {
+    const { user } = req;
+    return this.appDataService.updateApp({ ...appData, user });
   }
 }
